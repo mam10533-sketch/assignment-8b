@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WAV Audio Example</title>
+  <style>
+    button:hover {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <audio id="sound" controls src="hometown.wav"></audio>
+
+  <button id="jumpButton">Jump To 50s</button>
+
+  <script>
+    const sound = document.getElementById('sound');
+    const jumpButton = document.getElementById('jumpButton');
+    let timerIsActive = false;
+
+    sound.addEventListener('play', () => {
+      document.body.style.backgroundColor = 'pink';
+      console.log('Audio started playing');
+    });
+
+    sound.addEventListener('pause', () => {
+      document.body.style.backgroundColor = 'lightgray';
+      console.log('Audio paused');
+    });
+
+    sound.addEventListener('ended', () => {
+      document.body.style.backgroundColor = 'lightblue';
+      console.log('Audio ended');
+    });
+
+    jumpButton.addEventListener('click', () => {
+      sound.currentTime = 50;   
+      sound.volume = 0.5;   
+      sound.play();
+      console.log('Muted:', sound.muted);
+
+      if (!timerIsActive) {
+        timerIsActive = true;
+        setTimeout(() => {
+          sound.pause();
+          timerIsActive = false;
+        }, 5000); 
+      }
+    });
+  </script>
+</body>
+
+</html>
